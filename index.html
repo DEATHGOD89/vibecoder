@@ -152,10 +152,205 @@
                             </div>
                         </div>
                         
-                        <div class="vibe-shield-section" style="padding-top: 14px; border-top: 1px solid var(--border-color); display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 16px;">
-                            <span class="section-title" style="padding-top: 0; border: none; font-size: 12px;"><i data-lucide="languages"></i> Target Output Language</span>
-                            <div style="width: 180px;">
-                                <select id="quickLanguage" style="padding: 8px 12px; font-size: 13px; border-radius: 6px;">
+                        <div class="vibe-shield-section" style="padding-top: 14px; border-top: 1px solid var(--border-color); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+                            <div>
+                                <span class="section-title" style="padding-top: 0; border: none; font-size: 12px;"><i data-lucide="workflow"></i> Prompt Work Mode</span>
+                                <select id="promptMode" style="padding: 8px 12px; font-size: 13px; border-radius: 6px; margin-top: 8px; width: 100%;">
+                                    <option value="auto">Auto Detect</option>
+                                    <optgroup label="🚀 Development">
+                                        <option value="scratch">Website/App From Scratch</option>
+                                        <option value="saas">SaaS Product Builder</option>
+                                        <option value="mvp">MVP Builder</option>
+                                        <option value="fullstack">Full Stack Development</option>
+                                        <option value="frontend">Frontend Development</option>
+                                        <option value="backend">Backend Development</option>
+                                        <option value="mobile">Mobile App Development</option>
+                                        <option value="desktop">Desktop App Development</option>
+                                        <option value="chrome">Chrome Extension Dev</option>
+                                        <option value="automation">Browser Automation</option>
+                                        <option value="api_dev">API Development</option>
+                                        <option value="microservices">Microservices Development</option>
+                                        <option value="serverless">Serverless Development</option>
+                                    </optgroup>
+                                    <optgroup label="🐛 Debugging & Fixing">
+                                        <option value="bug_fix">Bug Fix & Debug</option>
+                                        <option value="root_cause">Root Cause Analysis</option>
+                                        <option value="error_log">Error Log Analysis</option>
+                                        <option value="crash_invest">Crash Investigation</option>
+                                        <option value="incident_response">Incident Response</option>
+                                        <option value="regression">Regression Analysis</option>
+                                        <option value="memory_leak">Memory Leak Detection</option>
+                                        <option value="bottleneck">Performance Bottleneck</option>
+                                        <option value="build_failure">Build Failure Investigation</option>
+                                    </optgroup>
+                                    <optgroup label="🔧 Feature Development">
+                                        <option value="add_feature">Add New Feature</option>
+                                        <option value="enhance_feature">Feature Enhancement</option>
+                                        <option value="migration">Feature Migration</option>
+                                        <option value="modernization">Legacy Modernization</option>
+                                        <option value="planning">Feature Planning</option>
+                                    </optgroup>
+                                    <optgroup label="♻️ Refactoring">
+                                        <option value="refactor">Code Refactoring</option>
+                                        <option value="arch_refactor">Architecture Refactoring</option>
+                                        <option value="debt_cleanup">Technical Debt Cleanup</option>
+                                        <option value="comp_refactor">Component Refactoring</option>
+                                        <option value="db_refactor">Database Refactoring</option>
+                                        <option value="api_refactor">API Refactoring</option>
+                                    </optgroup>
+                                    <optgroup label="🎨 Design & UI/UX">
+                                        <option value="ui_design">UI Design</option>
+                                        <option value="ux_design">UX Design</option>
+                                        <option value="dashboard_design">Dashboard Design</option>
+                                        <option value="saas_design">SaaS Design</option>
+                                        <option value="landing_design">Landing Page Design</option>
+                                        <option value="mobile_ui">Mobile UI Design</option>
+                                        <option value="design_system">Design System Creation</option>
+                                        <option value="accessibility">Accessibility Improvements</option>
+                                        <option value="dark_mode">Dark Mode Implementation</option>
+                                        <option value="design_review">Design Review</option>
+                                    </optgroup>
+                                    <optgroup label="🏗 Architecture">
+                                        <option value="system_arch">System Architecture</option>
+                                        <option value="saas_arch">SaaS Architecture</option>
+                                        <option value="db_arch">Database Architecture</option>
+                                        <option value="cloud_arch">Cloud Architecture</option>
+                                        <option value="scale_arch">Scalable Architecture</option>
+                                        <option value="multitenant">Multi-Tenant Architecture</option>
+                                        <option value="event_driven">Event-Driven Architecture</option>
+                                        <option value="enterprise_arch">Enterprise Architecture</option>
+                                    </optgroup>
+                                    <optgroup label="🗄 Database">
+                                        <option value="db_design">Database Design</option>
+                                        <option value="sql_schema">SQL Schema Design</option>
+                                        <option value="postgres">PostgreSQL Optimization</option>
+                                        <option value="mongodb">MongoDB Design</option>
+                                        <option value="supabase">Supabase Setup</option>
+                                        <option value="prisma">Prisma Modeling</option>
+                                        <option value="db_migration">Data Migration Planning</option>
+                                        <option value="query_opt">Query Optimization</option>
+                                    </optgroup>
+                                    <optgroup label="🔐 Security">
+                                        <option value="security_audit">Security Audit</option>
+                                        <option value="vulnerability">Vulnerability Assessment</option>
+                                        <option value="auth_setup">Authentication Setup</option>
+                                        <option value="auth_design">Authorization Design</option>
+                                        <option value="owasp">OWASP Review</option>
+                                        <option value="api_security">API Security</option>
+                                        <option value="secure_coding">Secure Coding Review</option>
+                                        <option value="data_protection">Data Protection Review</option>
+                                    </optgroup>
+                                    <optgroup label="⚡ Performance">
+                                        <option value="perf_opt">Performance Optimization</option>
+                                        <option value="frontend_opt">Frontend Optimization</option>
+                                        <option value="backend_opt">Backend Optimization</option>
+                                        <option value="db_opt">Database Optimization</option>
+                                        <option value="seo_opt">SEO Optimization</option>
+                                        <option value="web_vitals">Core Web Vitals Opt</option>
+                                        <option value="caching">Caching Strategy</option>
+                                        <option value="bundle_size">Bundle Size Reduction</option>
+                                    </optgroup>
+                                    <optgroup label="🤖 AI & Automation">
+                                        <option value="ai_feature">AI Feature Development</option>
+                                        <option value="openai_int">OpenAI Integration</option>
+                                        <option value="claude_int">Claude Integration</option>
+                                        <option value="gemini_int">Gemini Integration</option>
+                                        <option value="rag_design">RAG System Design</option>
+                                        <option value="ai_agent">AI Agent Development</option>
+                                        <option value="automation_int">Workflow Automation</option>
+                                        <option value="prompt_eng">Prompt Engineering</option>
+                                        <option value="ai_arch">AI Product Architecture</option>
+                                    </optgroup>
+                                    <optgroup label="🧪 Testing">
+                                        <option value="unit_test">Unit Test Generation</option>
+                                        <option value="integration_test">Integration Test Gen</option>
+                                        <option value="e2e_test">E2E Test Generation</option>
+                                        <option value="test_strategy">Test Strategy Design</option>
+                                        <option value="qa_review">QA Review</option>
+                                        <option value="coverage">Coverage Improvement</option>
+                                        <option value="load_test">Load Testing</option>
+                                        <option value="stress_test">Stress Testing</option>
+                                    </optgroup>
+                                    <optgroup label="🔍 Review & Analysis">
+                                        <option value="code_review">Code Review</option>
+                                        <option value="arch_review">Architecture Review</option>
+                                        <option value="pr_review">Pull Request Review</option>
+                                        <option value="security_review">Security Review</option>
+                                        <option value="perf_review">Performance Review</option>
+                                        <option value="dep_review">Dependency Review</option>
+                                        <option value="audit_review">Best Practices Audit</option>
+                                    </optgroup>
+                                    <optgroup label="📚 Documentation">
+                                        <option value="tech_doc">Technical Documentation</option>
+                                        <option value="api_doc">API Documentation</option>
+                                        <option value="readme">README Generation</option>
+                                        <option value="user_guide">User Guide Creation</option>
+                                        <option value="dev_guide">Developer Guide</option>
+                                        <option value="sys_doc">System Documentation</option>
+                                        <option value="deploy_doc">Deployment Doc</option>
+                                    </optgroup>
+                                    <optgroup label="☁️ DevOps & Deployment">
+                                        <option value="cicd">CI/CD Setup</option>
+                                        <option value="docker">Docker Configuration</option>
+                                        <option value="k8s">Kubernetes Setup</option>
+                                        <option value="vercel">Vercel Deployment</option>
+                                        <option value="aws">AWS Deployment</option>
+                                        <option value="azure">Azure Deployment</option>
+                                        <option value="gcp">GCP Deployment</option>
+                                        <option value="monitoring">Monitoring & Logging</option>
+                                    </optgroup>
+                                    <optgroup label="📈 Product & Business">
+                                        <option value="prd">Requirements Doc (PRD)</option>
+                                        <option value="spec">Feature Specification</option>
+                                        <option value="saas_planning">SaaS Planning</option>
+                                        <option value="mvp_planning">Startup MVP Planning</option>
+                                        <option value="roadmap">Product Roadmap</option>
+                                        <option value="user_story">User Story Generation</option>
+                                        <option value="validation">Market Validation</option>
+                                    </optgroup>
+                                    <optgroup label="📱 Platform Specific">
+                                        <option value="nextjs">Next.js</option>
+                                        <option value="react">React</option>
+                                        <option value="vue">Vue</option>
+                                        <option value="angular">Angular</option>
+                                        <option value="svelte">Svelte</option>
+                                        <option value="nodejs">Node.js</option>
+                                        <option value="express">Express</option>
+                                        <option value="nestjs">NestJS</option>
+                                        <option value="laravel">Laravel</option>
+                                        <option value="django">Django</option>
+                                        <option value="fastapi">FastAPI</option>
+                                        <option value="flutter">Flutter</option>
+                                        <option value="reactnative">React Native</option>
+                                        <option value="electron">Electron</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="section-title" style="padding-top: 0; border: none; font-size: 12px;"><i data-lucide="layers"></i> Output Type Selector</span>
+                                <select id="promptOutputType" style="padding: 8px 12px; font-size: 13px; border-radius: 6px; margin-top: 8px; width: 100%;">
+                                    <option value="everything">Everything Mode</option>
+                                    <option value="full_project">Full Project</option>
+                                    <option value="mvp_only">MVP Only</option>
+                                    <option value="plan">Implementation Plan</option>
+                                    <option value="structure">Folder Structure</option>
+                                    <option value="schema">Database Schema</option>
+                                    <option value="api_design">API Design</option>
+                                    <option value="ui_components">UI Components</option>
+                                    <option value="frontend_code">Frontend Code</option>
+                                    <option value="backend_code">Backend Code</option>
+                                    <option value="fullstack_code">Full Stack Code</option>
+                                    <option value="deploy_guide">Deployment Guide</option>
+                                    <option value="docs">Documentation</option>
+                                    <option value="tests">Testing Suite</option>
+                                    <option value="code_review">Code Review Report</option>
+                                    <option value="opt_report">Optimization Report</option>
+                                    <option value="security_report">Security Report</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="section-title" style="padding-top: 0; border: none; font-size: 12px;"><i data-lucide="languages"></i> Target Output Language</span>
+                                <select id="quickLanguage" style="padding: 8px 12px; font-size: 13px; border-radius: 6px; margin-top: 8px; width: 100%;">
                                     <option value="en">English (Default)</option>
                                     <option value="es">Spanish (Español)</option>
                                     <option value="fr">French (Français)</option>
@@ -300,7 +495,7 @@
                 <section class="tab-page" id="tab-settings">
                     <div class="page-header">
                         <h2>API Keys & Enhancer Settings</h2>
-                        <p class="subtitle">Configure AI models to run direct premium enhancements locally in your browser.</p>
+                        <p class="subtitle">Use the free local prompt engine by default, or optionally connect your own AI key for external model rewriting.</p>
                     </div>
                     
                     <div class="settings-grid">
@@ -314,9 +509,9 @@
                                 <div class="form-group">
                                     <label for="apiProvider">Select AI Provider</label>
                                     <select id="apiProvider">
-                                        <option value="gemini">Google Gemini API (Recommended - Free Tier Available)</option>
-                                        <option value="openai">OpenAI (ChatGPT API)</option>
-                                        <option value="none">Zero-Key Smart Parser (No API Key required)</option>
+                                        <option value="none">Free Local Pro Compiler (No API Key required)</option>
+                                        <option value="gemini">Google Gemini API (Optional external key)</option>
+                                        <option value="openai">OpenAI API (Optional external key)</option>
                                     </select>
                                 </div>
                                 

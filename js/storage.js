@@ -18,7 +18,7 @@ const DEFAULT_PREFERENCES = {
 const DEFAULT_API_CONFIG = {
     provider: 'none',
     key: '',
-    model: 'gemini-1.5-flash'
+    model: 'smart-local'
 };
 
 export const StorageManager = {

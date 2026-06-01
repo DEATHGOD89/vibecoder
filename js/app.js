@@ -206,6 +206,8 @@ const DOM = {
     toastContainer: document.getElementById('toastContainer'),
     
     // Phase 2 Elements
+    promptMode: document.getElementById('promptMode'),
+    promptOutputType: document.getElementById('promptOutputType'),
     quickLanguage: document.getElementById('quickLanguage'),
     exportBackupBtn: document.getElementById('exportBackupBtn'),
     importBackupInput: document.getElementById('importBackupInput'),
@@ -625,7 +627,7 @@ function bindEvents() {
                 tailwindLock: DOM.shieldTailwind.checked
             };
             
-            const enhancedPrompt = await PromptEnhancer.enhanceWithAi(rawThought, apiConfig, shields, DOM.quickLanguage.value);
+            const enhancedPrompt = await PromptEnhancer.enhanceWithAi(rawThought, apiConfig, shields, DOM.quickLanguage.value, DOM.promptMode.value, DOM.promptOutputType.value);
             
             // Update UI Workspace
             updateWorkspace(enhancedPrompt);
@@ -724,7 +726,7 @@ function bindEvents() {
             `;
         } else {
             DOM.apiModel.innerHTML = `
-                <option value="smart-local">Smart Local Heuristics Compiler</option>
+                <option value="smart-local">Free Local Pro Compiler</option>
             `;
         }
     });
@@ -881,6 +883,8 @@ function bindEvents() {
         const shareData = {
             raw: rawThought,
             lang: DOM.quickLanguage.value,
+            mode: DOM.promptMode.value,
+            outputType: DOM.promptOutputType.value,
             shields: {
                 truncation: DOM.shieldTruncation.checked,
                 comments: DOM.shieldComments.checked,
@@ -1086,6 +1090,9 @@ function initApp() {
     DOM.apiKeyVal.value = apiConfig.key || '';
     DOM.apiProvider.dispatchEvent(new Event('change'));
     DOM.apiModel.value = apiConfig.model;
+    if (!DOM.apiModel.value && DOM.apiModel.options.length) {
+        DOM.apiModel.selectedIndex = 0;
+    }
     
     const prefs = { ...StorageManager.getPreferences() };
     DOM.prefAutoCopy.checked = prefs.autoCopy;
@@ -1131,6 +1138,12 @@ function initApp() {
             }
             if (data.lang) {
                 DOM.quickLanguage.value = data.lang;
+            }
+            if (data.mode && DOM.promptMode.querySelector(`option[value="${data.mode}"]`)) {
+                DOM.promptMode.value = data.mode;
+            }
+            if (data.outputType && DOM.promptOutputType.querySelector(`option[value="${data.outputType}"]`)) {
+                DOM.promptOutputType.value = data.outputType;
             }
             if (data.shields) {
                 DOM.shieldTruncation.checked = !!data.shields.truncation;
