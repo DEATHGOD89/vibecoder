@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptFlow AI | The Ultimate Chat & Prompt Enhancer</title>
+    
+    <!-- Site Icon (Favicon) -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Mermaid.js ESM CDN Integration -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            securityLevel: 'loose',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        window.mermaid = mermaid; // Bind globally for parser access
+    </script>
+</head>
+<body class="dark-theme">
+    
+    <!-- App Container -->
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <div class="logo-icon" style="background: transparent; box-shadow: none;">
+                        <img src="logo.png" alt="PromptFlow Logo" class="pulse-icon" style="width: 40px; height: 40px; object-fit: contain;">
+                    </div>
+                    <div class="logo-text">
+                        <h1>PromptFlow <span class="accent-text">AI</span></h1>
+                        <span class="tagline">Vibe Coding Companion</span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-tab="quick-enhance">
+                    <i data-lucide="wand-2"></i>
+                    <span>Quick Enhance</span>
+                </button>
+                <button class="nav-btn" data-tab="architect">
+                    <i data-lucide="layout"></i>
+                    <span>Prompt Architect</span>
+                </button>
+                <button class="nav-btn" data-tab="library">
+                    <i data-lucide="book-open"></i>
+                    <span>Elite Library</span>
+                </button>
+                <button class="nav-btn" data-tab="settings">
+                    <i data-lucide="settings"></i>
+                    <span>API & Settings</span>
+                </button>
+                <button class="nav-btn" data-tab="instructions">
+                    <i data-lucide="help-circle"></i>
+                    <span>How to Use</span>
+                </button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme">
+                    <i data-lucide="moon" class="theme-icon-dark"></i>
+                    <i data-lucide="sun" class="theme-icon-light"></i>
+                    <span id="themeToggleLabel">Dark Theme</span>
+                </button>
+                <div class="vibe-indicator">
+                    <div class="status-dot online"></div>
+                    <span>Shield Protection Active</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Workspace -->
+        <main class="main-content">
+            
+            <!-- Sidebar Collapse Toggle Button -->
+            <button class="sidebar-toggle-btn-floating" id="sidebarCollapseBtn" title="Toggle Sidebar">
+                <i data-lucide="panel-left-close"></i>
+            </button>
+            
+            <!-- Workspace Tab Pages -->
+            <div class="tab-viewport">
+                
+                <!-- Tab: Quick Enhance -->
+                <section class="tab-page active" id="tab-quick-enhance">
+                    <div class="page-header">
+                        <h2>Quick Prompt Enhancer</h2>
+                        <p class="subtitle">Paste your raw, messy conversational thought and let AI structure it perfectly.</p>
+                    </div>
+                    
+                    <div class="input-panel card">
+                        <div class="card-header">
+                            <span class="card-title"><i data-lucide="message-square-dashed"></i> Raw Thought Input</span>
+                            <span class="char-counter" id="quickCharCount">0 chars</span>
+                        </div>
+                        <textarea id="rawThoughtInput" placeholder="E.g., I want a python script to download files from s3 bucket but make it async and put error checks. Tell me how to use it. And make sure it doesn't break if files are missing..."></textarea>
+                        
+                        <div class="vibe-shield-section">
+                            <span class="section-title"><i data-lucide="shield-alert"></i> Coding Shield Guardrails (Vibe Coder Protection)</span>
+                            <div class="shield-grid">
+                                <label class="shield-toggle">
+                                    <input type="checkbox" id="shieldTruncation" checked>
+                                    <span class="slider"></span>
+                                    <span class="toggle-label">
+                                        <strong>Anti-Truncation</strong>
+                                        <small>Bans code omission (... rest of code)</small>
+                                    </span>
+                                </label>
+                                
+                                <label class="shield-toggle">
+                                    <input type="checkbox" id="shieldComments" checked>
+                                    <span class="slider"></span>
+                                    <span class="toggle-label">
+                                        <strong>Comment Preservation</strong>
+                                        <small>Protects pre-existing comments</small>
+                                    </span>
+                                </label>
+                                
+                                <label class="shield-toggle">
+                                    <input type="checkbox" id="shieldPlanFirst" checked>
+                                    <span class="slider"></span>
+                                    <span class="toggle-label">
+                                        <strong>Architectural Plan First</strong>
+                                        <small>Force AI to explain plan before code</small>
+                                    </span>
+                                </label>
+                                
+                                <label class="shield-toggle">
+                                    <input type="checkbox" id="shieldTailwind" checked>
+                                    <span class="slider"></span>
+                                    <span class="toggle-label">
+                                        <strong>Framework Locking</strong>
+                                        <small>Forbid unrequested style framework swaps</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="vibe-shield-section" style="padding-top: 14px; border-top: 1px solid var(--border-color); display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 16px;">
+                            <span class="section-title" style="padding-top: 0; border: none; font-size: 12px;"><i data-lucide="languages"></i> Target Output Language</span>
+                            <div style="width: 180px;">
+                                <select id="quickLanguage" style="padding: 8px 12px; font-size: 13px; border-radius: 6px;">
+                                    <option value="en">English (Default)</option>
+                                    <option value="es">Spanish (Español)</option>
+                                    <option value="fr">French (Français)</option>
+                                    <option value="ja">Japanese (日本語)</option>
+                                    <option value="de">German (Deutsch)</option>
+                                    <option value="hi">Hindi (हिन्दी)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn btn-secondary" id="clearQuickBtn"><i data-lucide="trash-2"></i> Clear</button>
+                            <button class="btn btn-primary btn-glow" id="enhanceBtn">
+                                <span class="btn-text">Enhance Prompt</span>
+                                <i data-lucide="sparkles"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tab: Prompt Architect -->
+                <section class="tab-page" id="tab-architect">
+                    <div class="page-header">
+                        <h2>Step-by-Step Prompt Architect</h2>
+                        <p class="subtitle">Answer simple guided fields to construct a robust, production-grade prompt block.</p>
+                    </div>
+                    
+                    <div class="architect-form card">
+                        <div class="architect-steps">
+                            <!-- Step 1: Role -->
+                            <div class="step-card">
+                                <div class="step-header">
+                                    <span class="step-num">01</span>
+                                    <h3>Define the AI's Persona / Role</h3>
+                                </div>
+                                <div class="step-body">
+                                    <div class="input-suggestions-wrapper">
+                                        <input type="text" id="archRole" placeholder="E.g., Senior React Architect & Accessibility Expert" list="suggestedRoles">
+                                        <datalist id="suggestedRoles">
+                                            <option value="Senior React Architect">
+                                            <option value="Rigorous Code Reviewer & Bug Hunter">
+                                            <option value="Patient Math & Computer Science Tutor">
+                                            <option value="Conversion-Focused Copywriter">
+                                            <option value="DevOps & Kubernetes Guru">
+                                        </datalist>
+                                    </div>
+                                    <span class="field-hint">Instructing the AI to adopt a specific mindset drastically improves accuracy.</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Goal -->
+                            <div class="step-card">
+                                <div class="step-header">
+                                    <span class="step-num">02</span>
+                                    <h3>Core Goal & Context</h3>
+                                </div>
+                                <div class="step-body">
+                                    <textarea id="archGoal" placeholder="Describe what you want to accomplish or build. E.g., I want to build a lightweight state manager for pure Vanilla JS apps to replace Redux..."></textarea>
+                                    <span class="field-hint">What is the background? What project does this fit into?</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Tasks Checklist -->
+                            <div class="step-card">
+                                <div class="step-header">
+                                    <span class="step-num">03</span>
+                                    <h3>Specific Deliverables (Checklist)</h3>
+                                </div>
+                                <div class="step-body">
+                                    <textarea id="archTasks" placeholder="E.g.,
+1. Write the main StateStore class.
+2. Implement publish/subscribe pattern.
+3. Write a small example HTML showing increment/decrement."></textarea>
+                                    <span class="field-hint">Break your request into concrete, numbered steps.</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: Strict Constraints -->
+                            <div class="step-card">
+                                <div class="step-header">
+                                    <span class="step-num">04</span>
+                                    <h3>Strict Constraints & Rules (What to AVOID)</h3>
+                                </div>
+                                <div class="step-body">
+                                    <textarea id="archConstraints" placeholder="E.g.,
+- Do NOT use any npm packages or dependencies.
+- Avoid using classes if closures can achieve the same result.
+- Do NOT use TypeScript. Keep it ES6+ JavaScript."></textarea>
+                                    <span class="field-hint">Telling the AI what *not* to do is the single best way to prevent hallucinations.</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 5: Output Format -->
+                            <div class="step-card">
+                                <div class="step-header">
+                                    <span class="step-num">05</span>
+                                    <h3>Desired Output Format</h3>
+                                </div>
+                                <div class="step-body">
+                                    <select id="archFormat">
+                                        <option value="code-only">Fully documented code blocks ready to copy-paste</option>
+                                        <option value="code-diff">Git diff format showing exact line additions/deletions</option>
+                                        <option value="step-by-step">Educational step-by-step tutorial with code snippets</option>
+                                        <option value="spec-md">Technical specification document (Markdown)</option>
+                                        <option value="custom">Custom (defined in checklist)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn btn-secondary" id="resetArchitectBtn"><i data-lucide="rotate-ccw"></i> Reset</button>
+                            <button class="btn btn-primary btn-glow" id="compileArchitectBtn">
+                                <span>Assemble Prompt</span>
+                                <i data-lucide="layout-grid"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tab: Elite Library -->
+                <section class="tab-page" id="tab-library">
+                    <div class="page-header">
+                        <h2>Elite Prompt Library</h2>
+                        <p class="subtitle">Highly effective, pre-designed prompts engineered to force perfect behavior in AIs.</p>
+                    </div>
+                    
+                    <div class="library-filter-bar">
+                        <button class="filter-chip active" data-filter="all">All Templates</button>
+                        <button class="filter-chip" data-filter="coding">Coding Shield</button>
+                        <button class="filter-chip" data-filter="learning">Learning & Tutor</button>
+                        <button class="filter-chip" data-filter="creative">Creative & Copy</button>
+                        <button class="filter-chip" data-filter="debugging">Refactoring & Debug</button>
+                    </div>
+                    
+                    <div class="library-grid" id="libraryGrid">
+                        <!-- Loaded dynamically via js/templates.js -->
+                    </div>
+                </section>
+                
+                <!-- Tab: Settings -->
+                <section class="tab-page" id="tab-settings">
+                    <div class="page-header">
+                        <h2>API Keys & Enhancer Settings</h2>
+                        <p class="subtitle">Configure AI models to run direct premium enhancements locally in your browser.</p>
+                    </div>
+                    
+                    <div class="settings-grid">
+                        
+                        <!-- AI Config Card -->
+                        <div class="card settings-card">
+                            <div class="card-header">
+                                <span class="card-title"><i data-lucide="key-round"></i> API Configuration</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="apiProvider">Select AI Provider</label>
+                                    <select id="apiProvider">
+                                        <option value="gemini">Google Gemini API (Recommended - Free Tier Available)</option>
+                                        <option value="openai">OpenAI (ChatGPT API)</option>
+                                        <option value="none">Zero-Key Smart Parser (No API Key required)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group" id="apiKeyWrapper">
+                                    <label for="apiKeyVal">API Key</label>
+                                    <div class="password-input-group">
+                                        <input type="password" id="apiKeyVal" placeholder="AIzkSy... (Saved only in your local browser storage)">
+                                        <button class="btn-icon" id="toggleApiKeyVis" type="button"><i data-lucide="eye"></i></button>
+                                    </div>
+                                    <small class="help-block text-secondary">
+                                        Your key is kept 100% locally in your browser's local storage and is never uploaded to any server except the direct LLM endpoints.
+                                    </small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="apiModel">Select AI Model</label>
+                                    <select id="apiModel">
+                                        <option value="gemini-1.5-flash">gemini-1.5-flash (Lightning fast)</option>
+                                        <option value="gemini-1.5-pro">gemini-1.5-pro (Highly analytical)</option>
+                                        <option value="gpt-4o-mini">gpt-4o-mini (Cost-effective & quick)</option>
+                                        <option value="gpt-4o">gpt-4o (Ultra-premium reasoning)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary" id="saveApiConfigBtn">
+                                    <span>Save API Configuration</span>
+                                    <i data-lucide="check"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- System Settings Card -->
+                        <div class="card settings-card">
+                            <div class="card-header">
+                                <span class="card-title"><i data-lucide="sliders"></i> Enhancement Preferences</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="toggle-control-label">
+                                        <input type="checkbox" id="prefAutoCopy" checked>
+                                        <span class="control-box"></span>
+                                        <span>Automatically Copy to Clipboard on Enhance</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="toggle-control-label">
+                                        <input type="checkbox" id="prefMarkdownPreview" checked>
+                                        <span class="control-box"></span>
+                                        <span>Show Rendered Markdown Preview by default</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="toggle-control-label">
+                                        <input type="checkbox" id="prefSoundFeedback">
+                                        <span class="control-box"></span>
+                                        <span>Enable UI Micro-sounds</span>
+                                    </label>
+                                </div>
+                                
+                                <div class="danger-zone">
+                                    <h4>Storage Maintenance</h4>
+                                    <p class="text-secondary">Clear all saved history prompts and cached configuration items.</p>
+                                    <button class="btn btn-danger" id="clearAllHistoryBtn"><i data-lucide="trash-2"></i> Clear History & Keys</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Backup & Cloud Share Card -->
+                        <div class="card settings-card">
+                            <div class="card-header">
+                                <span class="card-title"><i data-lucide="cloud-lightning"></i> Backup & Share Center</span>
+                            </div>
+                            <div class="card-body" style="display: flex; flex-direction: column; gap: 16px;">
+                                <p class="text-secondary" style="font-size: 13px; line-height: 1.4;">
+                                    Export your prompt history and model credentials locally as a JSON backup file to sync across other computers, or import a saved backup.
+                                </p>
+                                <div class="backup-actions-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px;">
+                                    <button class="btn btn-secondary" id="exportBackupBtn" style="padding: 10px 16px; font-size: 13px; justify-content: center; gap: 6px;">
+                                        <i data-lucide="download-cloud" style="width: 16px; height: 16px;"></i>
+                                        <span>Export JSON</span>
+                                    </button>
+                                    
+                                    <div class="import-file-wrapper" style="position: relative; display: inline-block;">
+                                        <label for="importBackupInput" class="custom-file-upload btn btn-secondary" style="padding: 10px 16px; font-size: 13px; justify-content: center; gap: 6px; width: 100%; cursor: pointer;">
+                                            <i data-lucide="upload-cloud" style="width: 16px; height: 16px;"></i>
+                                            <span>Import JSON</span>
+                                        </label>
+                                        <input type="file" id="importBackupInput" accept=".json" style="display: none;">
+                                    </div>
+                                </div>
+                                
+                                <div class="danger-zone" style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border-color);">
+                                    <h4>Instant Workspace Link Share</h4>
+                                    <p class="text-secondary">Generate a unique link encoding your active prompt state to share with anyone instantly (works serverless!).</p>
+                                    <button class="btn btn-primary btn-glow" id="sharePromptLinkBtn" style="padding: 10px 16px; font-size: 13px; width: 100%; justify-content: center; margin-top: 8px;">
+                                        <i data-lucide="share-2" style="width: 16px; height: 16px;"></i>
+                                        <span>Generate Share Link</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tab: Instructions -->
+                <section class="tab-page" id="tab-instructions">
+                    <div class="page-header" style="padding-left: 0;">
+                        <h2>How to Use PromptFlow AI</h2>
+                        <p class="subtitle">An interactive visual guide on compiling production-grade, highly reliable prompts.</p>
+                    </div>
+                    
+                    <div class="card" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="card-header">
+                            <span class="card-title"><i data-lucide="info"></i> Quick Start & Workspace Guide</span>
+                        </div>
+                        <div class="card-body" style="font-size: 13.5px; line-height: 1.6; display: flex; flex-direction: column; gap: 16px; color: var(--text-secondary);">
+                            <p>Welcome to <strong>PromptFlow AI</strong>! This platform is designed to bridge the gap between sloppy conversational ideas and expert prompt layouts. Below is a breakdown of all core systems:</p>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px;">
+                                <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 16px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i data-lucide="wand-2" style="width: 16px; height: 16px; color: var(--accent-primary);"></i> 1. Quick Enhance</h4>
+                                    <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.4;">Paste any messy thought (e.g. <i>"make a script to download files"</i>) and press <strong>Enhance Prompt</strong>. Our compiler automatically rewrites it with professional roles, deliverables checklists, and rule constraints.</p>
+                                </div>
+                                <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 16px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i data-lucide="layout" style="width: 16px; height: 16px; color: var(--accent-cyan);"></i> 2. Prompt Architect</h4>
+                                    <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.4;">Use our guided form-fields to compile structured templates step-by-step. Enter the AI's role, core goal, deliverables checklists, and strict rules to output highly reliable templates.</p>
+                                </div>
+                                <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 16px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i data-lucide="shield" style="width: 16px; height: 16px; color: var(--status-success);"></i> 3. Vibe Shields</h4>
+                                    <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.4;">Enable key guardrails to lock down AI behaviors:
+                                    <br>• <strong>Anti-Truncation</strong>: Stops AI from writing <code>// ... rest of code</code>.
+                                    <br>• <strong>Plan First</strong>: Forces AI to reason step-by-step before code.
+                                    <br>• <strong>Styling Lock</strong>: Locks unrequested framework changes.</p>
+                                </div>
+                                <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 16px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i data-lucide="git-compare" style="width: 16px; height: 16px; color: var(--accent-primary);"></i> 4. Sloppy-to-Perfect Diff</h4>
+                                    <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.4;">Toggle <strong>Diff View</strong> in the Workspace header to see an elegant comparison: conversational fluff highlighted in <span style="color: #fca5a5; font-weight: 600;">red</span> vs. injected structural headers in <span style="color: #a7f3d0; font-weight: 600;">green</span>.</p>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                                <h4 style="color: var(--text-primary); margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i data-lucide="bar-chart-3" style="width: 16px; height: 16px; color: var(--accent-cyan);"></i> 5. Performance Auditor & Multi-Language</h4>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">• <strong>AI Auditor</strong>: Inspect real-time cost and latency estimates comparing Gemini, GPT-4o, Claude 3.5, and DeepSeek-R1 models dynamically.
+                                <br>• <strong>Target Language</strong>: Select English, Spanish, French, Japanese, German, or Hindi to auto-translate compiled prompt structures and headers instantly.</p>
+                            </div>
+                            
+                            <div style="margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                                <h4 style="color: var(--text-primary); margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i data-lucide="cloud-lightning" style="width: 16px; height: 16px; color: var(--status-warning);"></i> 6. Serverless Backup & Cloud Share</h4>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">• <strong>Instant Share Link</strong>: Click "Generate Share Link" in Settings to copy a Base64 URL that replicates your exact prompt state for anyone instantly.
+                                <br>• <strong>JSON Exporter</strong>: Back up all history drawer items and model preferences to a local JSON file and restore it in seconds.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+            
+            <!-- Drag to Resize splitter bar -->
+            <div class="resizer-bar" id="resizerBar" title="Drag to resize panels"></div>
+            
+            <!-- Right Panel: Performance Console & Live Workspace -->
+            <section class="performance-console">
+                
+                <!-- Prompt Doctor Score Card -->
+                <div class="doctor-card card">
+                    <div class="card-header">
+                        <span class="card-title"><i data-lucide="heart-pulse"></i> Prompt Doctor Diagnostics</span>
+                        <span class="badge" id="doctorVerdict">Awaiting Input</span>
+                    </div>
+                    <div class="doctor-content">
+                        <!-- Score Display -->
+                        <div class="score-circle-wrapper">
+                            <svg class="score-ring" width="120" height="120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52" stroke-width="8" fill="transparent"/>
+                                <circle class="ring-progress" id="doctorScoreRing" cx="60" cy="60" r="52" stroke-width="8" fill="transparent" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+                            </svg>
+                            <div class="score-number-display">
+                                <span id="doctorScoreText">0</span>
+                                <small>Score</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Checklist details -->
+                        <div class="doctor-checklist">
+                            <div class="checklist-item" id="chkRole">
+                                <i data-lucide="circle-dashed" class="chk-icon text-secondary"></i>
+                                <span>Explicit Persona/Role defined</span>
+                            </div>
+                            <div class="checklist-item" id="chkConstraints">
+                                <i data-lucide="circle-dashed" class="chk-icon text-secondary"></i>
+                                <span>Specific rules & limitations</span>
+                            </div>
+                            <div class="checklist-item" id="chkGoal">
+                                <i data-lucide="circle-dashed" class="chk-icon text-secondary"></i>
+                                <span>Core context & story clear</span>
+                            </div>
+                            <div class="checklist-item" id="chkFormat">
+                                <i data-lucide="circle-dashed" class="chk-icon text-secondary"></i>
+                                <span>Explicit output format requested</span>
+                            </div>
+                            <div class="checklist-item" id="chkLength">
+                                <i data-lucide="circle-dashed" class="chk-icon text-secondary"></i>
+                                <span>Sufficient depth & detail</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doctor-advice-box" id="doctorAdviceText">
+                        Paste or write a prompt to diagnose its efficiency. Perfect prompts score above 85.
+                    </div>
+                </div>
+                
+                <!-- Enhanced Output Workspace -->
+                <div class="output-card card">
+                    <div class="card-header">
+                        <span class="card-title"><i data-lucide="terminal"></i> Enhanced Prompt Workspace</span>
+                        <div class="output-view-toggles">
+                            <button class="toggle-btn active" id="viewPreviewBtn" title="Rendered Markdown"><i data-lucide="eye"></i></button>
+                            <button class="toggle-btn" id="viewRawBtn" title="Raw Markdown"><i data-lucide="code-2"></i></button>
+                            <button class="toggle-btn" id="viewDiffBtn" title="Sloppy-to-Perfect Diff"><i data-lucide="git-compare"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Output viewport -->
+                    <div class="output-viewport">
+                        <div class="loader-overlay" id="outputLoader">
+                            <div class="spinner"></div>
+                            <span>Enhancing prompt using Cyber AI...</span>
+                        </div>
+                        
+                        <!-- Markdown Preview Area -->
+                        <div class="rendered-preview markdown-body" id="promptMarkdownPreview">
+                            <p class="placeholder-text">Your perfectly compiled prompt will load here. Type a raw draft on the left or use the Architect and click <strong>Enhance</strong>.</p>
+                        </div>
+                        
+                        <!-- Raw Output Area -->
+                        <textarea class="raw-preview hidden" id="promptRawPreview" readonly></textarea>
+                        
+                        <!-- Diff Comparison View Area -->
+                        <div class="diff-container hidden" id="promptDiffContainer">
+                            <div class="diff-column">
+                                <div class="diff-column-header"><i data-lucide="alert-triangle" class="text-danger" style="width: 14px; height: 14px;"></i> Vague Conversational Fluff</div>
+                                <div class="diff-text-box" id="diffInputBox"></div>
+                            </div>
+                            <div class="diff-column">
+                                <div class="diff-column-header"><i data-lucide="check-circle-2" class="text-success" style="width: 14px; height: 14px;"></i> Pro System Injections</div>
+                                <div class="diff-text-box" id="diffOutputBox"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="output-footer">
+                        <div class="token-metrics">
+                            <span class="metric-item"><i data-lucide="hash"></i> Words: <strong id="valWordCount">0</strong></span>
+                            <span class="metric-item"><i data-lucide="binary"></i> Tokens (Est): <strong id="valTokenCount">0</strong></span>
+                        </div>
+                        <div class="output-actions">
+                            <button class="btn btn-secondary btn-icon" id="downloadMarkdownBtn" title="Download Markdown File">
+                                <i data-lucide="download"></i>
+                            </button>
+                            <button class="btn btn-primary" id="copyPromptBtn">
+                                <span>Copy Prompt</span>
+                                <i data-lucide="copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Cost & Latency Auditor Card -->
+                <div class="card auditor-card">
+                    <div class="card-header">
+                        <span class="card-title"><i data-lucide="bar-chart-3"></i> AI Cost & Performance Auditor</span>
+                        <span class="badge warning" style="background-color: rgba(59, 130, 246, 0.15); color: var(--accent-primary);">Real-time</span>
+                    </div>
+                    <div class="auditor-table-wrapper" style="overflow-x: auto; width: 100%;">
+                        <table class="auditor-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted); font-size: 11px;">
+                                    <th style="padding: 8px 4px; font-weight: 600;">Model Option</th>
+                                    <th style="padding: 8px 4px; font-weight: 600; text-align: right;">Est. Latency</th>
+                                    <th style="padding: 8px 4px; font-weight: 600; text-align: right;">Estimated Cost</th>
+                                    <th style="padding: 8px 4px; font-weight: 600; text-align: center;">Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="auditorMetricsBody">
+                                <tr style="border-bottom: 1px dashed var(--border-color);">
+                                    <td style="padding: 10px 4px;"><strong>Gemini 1.5 Flash</strong></td>
+                                    <td style="padding: 10px 4px; text-align: right; color: var(--status-success); font-weight: 600;">~0.4s</td>
+                                    <td id="costGemini" style="padding: 10px 4px; text-align: right; font-family: var(--font-mono); color: var(--text-secondary);">$0.0000</td>
+                                    <td style="padding: 10px 4px; text-align: center;"><span class="badge healthy" style="font-size: 9px; padding: 2px 6px;">B+</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px dashed var(--border-color);">
+                                    <td style="padding: 10px 4px;"><strong>GPT-4o (OpenAI)</strong></td>
+                                    <td style="padding: 10px 4px; text-align: right; color: var(--status-warning); font-weight: 600;">~1.2s</td>
+                                    <td id="costGpt" style="padding: 10px 4px; text-align: right; font-family: var(--font-mono); color: var(--text-secondary);">$0.0000</td>
+                                    <td style="padding: 10px 4px; text-align: center;"><span class="badge healthy" style="font-size: 9px; padding: 2px 6px;">A</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px dashed var(--border-color);">
+                                    <td style="padding: 10px 4px;"><strong>DeepSeek-R1</strong></td>
+                                    <td style="padding: 10px 4px; text-align: right; color: var(--status-danger); font-weight: 600;">~4.5s</td>
+                                    <td id="costDeepseek" style="padding: 10px 4px; text-align: right; font-family: var(--font-mono); color: var(--text-secondary);">$0.0000</td>
+                                    <td style="padding: 10px 4px; text-align: center;"><span class="badge healthy" style="font-size: 9px; padding: 2px 6px;">A+</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px dashed var(--border-color);">
+                                    <td style="padding: 10px 4px;"><strong>Claude 3.5 Sonnet</strong></td>
+                                    <td style="padding: 10px 4px; text-align: right; color: var(--status-warning); font-weight: 600;">~1.5s</td>
+                                    <td id="costClaude" style="padding: 10px 4px; text-align: right; font-family: var(--font-mono); color: var(--text-secondary);">$0.0000</td>
+                                    <td style="padding: 10px 4px; text-align: center;"><span class="badge healthy" style="font-size: 9px; padding: 2px 6px;">A+</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="doctor-advice-box text-secondary" style="font-size: 11px; margin-top: 0; line-height: 1.4; border-color: rgba(59, 130, 246, 0.15);">
+                        ℹ️ Audits dynamically scale based on active prompt token metrics. DeepSeek-R1 features the lowest budget cost, while Gemini Flash exhibits the lowest latency.
+                    </div>
+                </div>
+                
+            </section>
+        </main>
+        
+        <!-- History Sidebar Drawer Toggle Button -->
+        <button class="history-drawer-btn" id="historyDrawerBtn" title="Open Prompt History">
+            <i data-lucide="history"></i>
+            <span class="badge" id="historyCountBadge">0</span>
+        </button>
+        
+        <!-- History Drawer -->
+        <div class="history-drawer" id="historyDrawer">
+            <div class="drawer-header">
+                <h3><i data-lucide="history"></i> Prompt Archive</h3>
+                <button class="btn-icon" id="closeHistoryDrawerBtn"><i data-lucide="x"></i></button>
+            </div>
+            
+            <div class="drawer-search">
+                <input type="text" id="historySearchInput" placeholder="Search archive...">
+                <i data-lucide="search" class="search-icon"></i>
+            </div>
+            
+            <div class="drawer-content" id="historyArchiveList">
+                <!-- Loaded dynamically from localStorage -->
+                <div class="empty-history-text">
+                    <p>No prompts in your archive yet.</p>
+                    <small>Any prompt you enhance will automatically be recorded here.</small>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+        
+    </div>
+    
+    <!-- Floating Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- Custom JS Modules -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
